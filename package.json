@@ -1,0 +1,37 @@
+{
+  "name": "@api.video/react-player",
+  "version": "0.1.0",
+  "description": "api.video React player component",
+  "keywords": [
+    "player",
+    "api.video",
+    "video",
+    "react"
+  ],
+  "homepage": "https://github.com/apivideo/api.video-react-player#readme",
+  "bugs": "https://github.com/apivideo/api.video-react-player/issues",
+  "license": "MIT",
+  "author": "api.video <ecosystem@api.video> (https://api.video/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apivideo/api.video-react-player.git"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": ["dist/", "CHANGELOG.md"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.40",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
+    "react": "^17.0.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.6.2"
+  }
+}
