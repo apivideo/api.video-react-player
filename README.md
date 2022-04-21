@@ -14,8 +14,11 @@
 - [Getting started](#getting-started)
   - [Installation](#installation)
   - [Basic usage](#basic-usage)
+  - [Define your own controls](#define-your-own-controls)
 - [Documentation](#documentation)
-  - [Props](#props)
+  - [Properties](#properties)
+    - [Settings](#settings)
+    - [Callbacks](#callbacks)
   - [Methods](#methods)
 
 # Project description
@@ -23,8 +26,7 @@
 
 # Getting started
 
-Demo project to illustrate how to publish a package to npmjs. 
-Could become a real React component one day :)
+A React component for playing api.video videos.
 
 ## Installation
 
@@ -37,21 +39,89 @@ $ npm install --save @api.video/react-player
 You can then use the component in your app: 
 
 ```typescript
-// standard upload:
 import ApiVideoPlayer from '@api.video/react-player'
 
-//...
-export default function Home() {
-  return (
-      // ...
-        <ApiVideoPlayer videoId="vi5fv44Hol1jFrCovyktAJS9" />
-      // ...
-  )
-}
+// ...
+
+<ApiVideoPlayer video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
+```
+
+
+## Define your own controls
+
+```typescript
+
+const playerRef = useRef<ApiVideoPlayer>(null);
+
+return
+<ApiVideoPlayer      
+  video={{ id: "vi5jC9kQs2I3PdmVBjgcIg45" }}
+  chromeless={true}
+  ref={playerRef}>
+    <button onClick={() => playerRef.current?.play()}>play</button>
+    <button onClick={() => playerRef.current?.pause()}>pause</button>
+</ApiVideoPlayer>
 ```
 
 # Documentation
 
-## Props
+## Properties
+
+### Settings
+
+The following properties are used to configure the player. The value of each of these properties can be changed at any time during the playback.
+
+| Property      | Mandatory | Type                                                                                             | Description | Default   |
+| ------------- | --------- | ------------------------------------------------------------------------------------------------ | ----------- | --------- |
+| video         | **yes**   | {<br>&nbsp;&nbsp;id: string;<br>&nbsp;&nbsp;live?: boolean; <br>&nbsp;&nbsp;token?: string;<br>} |             |           |
+| style         | no        | React.CSSProperties                                                                              |             | {}        |
+| autoplay      | no        | boolean                                                                                          |             | false     |
+| muted         | no        | boolean                                                                                          |             | false     |
+| metadata      | no        | { [key: string]: string }                                                                        |             | {}        |
+| hideControls  | no        | boolean                                                                                          |             | false     |
+| hidePoster    | no        | boolean                                                                                          |             | false     |
+| chromeless    | no        | boolean                                                                                          |             | false     |
+| loop          | no        | boolean                                                                                          |             | false     |
+| hideTitle     | no        | boolean                                                                                          |             | false     |
+| playbackRate  | no        | number                                                                                           |             | 1         |
+| showSubtitles | no        | boolean                                                                                          |             | false     |
+| volume        | no        | number                                                                                           |             | 1         |
+| controls      | no        | ControlName[]                                                                                    |             | undefined |
+| theme         | no        | PlayerTheme                                                                                      |             | undefined |
+| responsive    | no        | boolean                                                                                          |             | false     |
+
+### Callbacks
+
+| Property               | Type                                                    | Description |
+| ---------------------- | ------------------------------------------------------- | ----------- |
+| onPlay                 | () => void                                              |             |
+| onPause                | () => void                                              |             |
+| onControlsDisabled     | () => void                                              |             |
+| onControlsEnabled      | () => void                                              |             |
+| onEnded                | () => void                                              |             |
+| onError                | () => void                                              |             |
+| onFirstPlay            | () => void                                              |             |
+| onFullscreenChange     | () => void                                              |             |
+| onMouseEnter           | () => void                                              |             |
+| onMouseLeave           | () => void                                              |             |
+| onPlayerResize         | () => void                                              |             |
+| onQualityChange        | (resolution: { height: number, width: number }) => void |             |
+| onVideoSizeRatioChange | (ratio: number) => void                                 |             |
+| onRateChange           | () => void                                              |             |
+| onReady                | () => void                                              |             |
+| onResize               | () => void                                              |             |
+| onSeeking              | () => void                                              |             |
+| onTimeUpdate           | (currentTime: number) => void                           |             |
+| onUserActive           | () => void                                              |             |
+| onUserInactive         | () => void                                              |             |
+| onVolumeChange         | (volume: number) => void                                |             |
+| onDurationChange       | (duration: number) => void                              |             |
 
 ## Methods
+
+| Method                       | Description |
+| ---------------------------- | ----------- |
+| play()                       |             |
+| pause()                      |             |
+| seek(time: number)           |             |
+| setCurrentTime(time: number) |             |
