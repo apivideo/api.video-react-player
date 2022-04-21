@@ -1,11 +1,15 @@
-import { ControlName, PlayerSdk, PlayerTheme } from "@api.video/player-sdk";
+import { ControlName as SdkControlName, PlayerSdk, PlayerTheme as SdkPlayerTheme } from "@api.video/player-sdk";
 import * as React from "react";
 
 export interface ApiVideoPlayerVideo {
     id: string;
     live?: boolean;
     token?: string;
-}
+};
+
+export type ControlName = SdkControlName;
+export type PlayerTheme = SdkPlayerTheme;
+
 export interface ApiVideoPlayerProps {
     style?: React.CSSProperties;
     autoplay?: boolean;
@@ -22,8 +26,7 @@ export interface ApiVideoPlayerProps {
     playbackRate?: number;
     showSubtitles?: boolean;
     video: ApiVideoPlayerVideo,
-    volume: number;
-    time?: number;
+    volume?: number;
     controls?: ControlName[],
     theme?: PlayerTheme;
 
@@ -51,7 +54,7 @@ export interface ApiVideoPlayerProps {
     onUserInactive?: () => void;
     onVolumeChange?: (volume: number) => void;
 
-    onDurationChange: (duration: number) => void;
+    onDurationChange?: (duration: number) => void;
 
     children?:
     | JSX.Element
@@ -62,7 +65,7 @@ interface ApiVideoPlayerState {
     videoSizeRatio?: number;
 }
 
-export default class ApiVideoReactPlayer extends React.Component<ApiVideoPlayerProps, ApiVideoPlayerState> {
+export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps, ApiVideoPlayerState> {
     private playerSdk: PlayerSdk;
     private iframe: React.RefObject<HTMLIFrameElement>;
 
@@ -164,9 +167,6 @@ export default class ApiVideoReactPlayer extends React.Component<ApiVideoPlayerP
         }
         if (nextProps.volume !== undefined && nextProps.volume !== this.props.volume) {
             this.playerSdk.setVolume(nextProps.volume);
-        }
-        if (nextProps.time !== undefined && nextProps.time !== this.props.time) {
-            this.playerSdk.setCurrentTime(nextProps.time);
         }
         if (nextProps.loop !== undefined && nextProps.loop !== this.props.loop) {
             this.playerSdk.setLoop(nextProps.loop);
