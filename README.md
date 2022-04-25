@@ -14,12 +14,18 @@
 - [Getting started](#getting-started)
   - [Installation](#installation)
   - [Basic usage](#basic-usage)
-  - [Define your own controls](#define-your-own-controls)
 - [Documentation](#documentation)
   - [Properties](#properties)
     - [Settings](#settings)
+      - [Controls](#controls)
+      - [Player theme](#player-theme)
+      - [Responsiveness](#responsiveness)
     - [Callbacks](#callbacks)
   - [Methods](#methods)
+  - [Use cases](#use-cases)
+    - [Private videos](#private-videos)
+    - [Defining metadata](#defining-metadata)
+    - [Define your own controls](#define-your-own-controls)
 
 # Project description
 
@@ -38,7 +44,7 @@ $ npm install --save @api.video/react-player
 
 You can then use the component in your app: 
 
-```typescript
+```tsx
 import ApiVideoPlayer from '@api.video/react-player'
 
 // ...
@@ -46,10 +52,147 @@ import ApiVideoPlayer from '@api.video/react-player'
 <ApiVideoPlayer video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
 ```
 
+# Documentation
 
-## Define your own controls
+## Properties
 
-```typescript
+### Settings
+
+The following properties are used to configure the player. The value of each of these properties can be changed at any time during the playback.
+
+| Property      | Mandatory | Type                                                                                             | Description                                                                                                                    | Default   |
+| ------------- | --------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | --------- |
+| video         | **yes**   | {<br>&nbsp;&nbsp;id: string;<br>&nbsp;&nbsp;live?: boolean; <br>&nbsp;&nbsp;token?: string;<br>} | `id`: id of the video to play<br>`token` (optional): secret video token<br>`live` (optional): true for live videos             |           |
+| style         | no        | React.CSSProperties                                                                              | CSS style to apply to the player container                                                                                     | {}        |
+| autoplay      | no        | boolean                                                                                          | Define if the video should start playing as soon as it is loaded                                                               | false     |
+| muted         | no        | boolean                                                                                          | The video is muted                                                                                                             | false     |
+| metadata      | no        | { [key: string]: string }                                                                        | Object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **example** below)                        | {}        |
+| hidePoster    | no        | boolean                                                                                          | Weither if the poster image displayed before the first play of the video should be hidden                                      | false     |
+| chromeless    | no        | boolean                                                                                          | Chromeless mode: all controls are hidden                                                                                       | false     |
+| loop          | no        | boolean                                                                                          | Once the video is finished it automatically starts again                                                                       | false     |
+| hideTitle     | no        | boolean                                                                                          | The video title is hidden                                                                                                      | false     |
+| playbackRate  | no        | number                                                                                           | The playback rate of the video: 1 for normal, 2 for x2, etc.                                                                   | 1         |
+| showSubtitles | no        | boolean                                                                                          | Determine if the video subtitles should be displayed                                                                           | false     |
+| volume        | no        | number                                                                                           | The audio volume. From 0 to 1 (0 = muted, 1 = 100%)                                                                            | 1         |
+| controls      | no        | ControlName[]                                                                                    | List of controls to display. If not specified and chromeless=false, all controls are displayed, see below [controls](#controls) | undefined |
+| theme         | no        | PlayerTheme                                                                                      | Theme to apply to the player, see below [player theme](#player-theme). If not specified, the default theme is used             | undefined |
+| responsive    | no        | boolean                                                                                          | Weither if the player shoulb be responsive. See below [responsiveness](#responsiveness)                                        | false     |
+
+#### Controls
+
+The `controls` property let you decide wich controls should be displayed on the player. Here is the list of all available controls:  `play`, `seekBackward`, `seekForward`, `playbackRate`, `volume`, `fullscreen`, `subtitles`, `chapters`, `pictureInPicture`, `progressBar`, `chromecast`, `download`, `more`.
+
+
+> Examples
+>
+> ```tsx
+> {/* default: all controls are displayed */}
+> <ApiVideoPlayer 
+>  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
+> 
+> {/* all controls hidden (equivalent to chromeless=true) */}
+> <ApiVideoPlayer 
+>   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+>   controls={[]} />
+> 
+> { /* only the play button & the unmute one are displayed */}
+> <ApiVideoPlayer 
+>   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+>   controls={["play", "unmute"]}/>
+> ```
+
+#### Player theme
+
+The `theme` property let you customize the color of some elements on the player. Here is the list of customizable elements: `text`, `link`, `linkHover`, `trackPlayed`, `trackUnplayed`, `trackBackground`, `backgroundTop`, `backgroundBottom`, `backgroundText`, `linkActive`.
+
+> Example
+> 
+> ```tsx
+> { /* display the text in blue and the progress bar in red */}
+> <ApiVideoPlayer 
+>   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+>   theme={{
+>     trackPlayed: "#FF0000",
+>     text: "blue"
+>   }}/>
+> ```
+
+#### Responsiveness
+
+With `responsive={true}`, the player height will be automatically set to match the video with/height ratio, depending on the width of player. 
+
+> Example
+> 
+> ```tsx
+> { /* the player width is 160px and response is true: if the video in a 16/9 one, the height of the player will be automatically set to 90px (160 / (16/9)) */}
+> <ApiVideoPlayer 
+>   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+>   style={{width: "160px"}}
+>   responsive={true} />
+> ```
+
+### Callbacks
+
+| Property               | Type                                                    | Description                                                                                                 |
+| ---------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| onPlay                 | () => void                                              | Called when a `play` event is triggered                                                                     |
+| onPause                | () => void                                              | Called when a `pause` event is triggered                                                                    |
+| onControlsDisabled     | () => void                                              | Called when a the controls are disabled                                                                     |
+| onControlsEnabled      | () => void                                              | Called when a the controls are enabled                                                                      |
+| onEnded                | () => void                                              | Called when a `ended` event is triggered                                                                    |
+| onError                | () => void                                              | Called when a `error` event is triggered                                                                    |
+| onFirstPlay            | () => void                                              | Called when a `firstPlay` event is triggered                                                                |
+| onFullscreenChange     | () => void                                              | Called when a `fullscreen` event is triggered                                                               |
+| onMouseEnter           | () => void                                              | Called when the mouse enter in the player area                                                              |
+| onMouseLeave           | () => void                                              | Called when the mouse leave the player area                                                                 |
+| onPlayerResize         | () => void                                              | Called when a `resize` event is triggered                                                                   |
+| onQualityChange        | (resolution: { height: number, width: number }) => void | Called when the quality of the video changes. The new quality is provided                                   |
+| onVideoSizeRatioChange | (ratio: number) => void                                 | Called when the size ratio of the video changes (ie. when a new video is loaded). The new ratio is provided |
+| onRateChange           | () => void                                              | Called when the playback rate changes                                                                       |
+| onReady                | () => void                                              | Called when a `ready` event is triggered                                                                    |
+| onSeeking              | () => void                                              | Called when a `seek` event is triggered                                                                     |
+| onTimeUpdate           | (currentTime: number) => void                           | Called when a `timeupdate` event is triggered. The current time is provided                                 |
+| onUserActive           | () => void                                              | Called when a `useractive` event is triggered                                                               |
+| onUserInactive         | () => void                                              | Called when a `userinactive` event is triggered                                                             |
+| onVolumeChange         | (volume: number) => void                                | Called when the volume changes. The volume is provided.                                                     |
+| onDurationChange       | (duration: number) => void                              | Called when the duration of the video change. The duration is provided                                      |
+
+## Methods
+
+| Method                       | Description                                                       |
+| ---------------------------- | ----------------------------------------------------------------- |
+| play()                       | Play the video                                                    |
+| pause()                      | Pause the video                                                   |
+| seek(time: number)           | Seek the playback using the specified amount of time (in seconds) |
+| setCurrentTime(time: number) | Go to the specified time (in seconds)                             |
+
+
+## Use cases
+
+
+### Private videos
+
+To play a [private video](https://api.video/blog/tutorials/tutorial-private-videos), add the video view token in the video attribute:
+
+```tsx
+// ...
+<ApiVideoPlayer video={{
+  id: "vi5fv44Hol1jFrCovyktAJS9",
+  token: "e1bdf9a8-da40-421e-87f3-75b15232c531"}} />
+```
+
+### Defining metadata
+
+```tsx
+// ...
+<ApiVideoPlayer 
+  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+  metadata={{"userName": "Alfred"}} />
+```
+
+### Define your own controls
+
+```tsx
 
 const playerRef = useRef<ApiVideoPlayer>(null);
 
@@ -62,66 +205,3 @@ return
     <button onClick={() => playerRef.current?.pause()}>pause</button>
 </ApiVideoPlayer>
 ```
-
-# Documentation
-
-## Properties
-
-### Settings
-
-The following properties are used to configure the player. The value of each of these properties can be changed at any time during the playback.
-
-| Property      | Mandatory | Type                                                                                             | Description | Default   |
-| ------------- | --------- | ------------------------------------------------------------------------------------------------ | ----------- | --------- |
-| video         | **yes**   | {<br>&nbsp;&nbsp;id: string;<br>&nbsp;&nbsp;live?: boolean; <br>&nbsp;&nbsp;token?: string;<br>} |             |           |
-| style         | no        | React.CSSProperties                                                                              |             | {}        |
-| autoplay      | no        | boolean                                                                                          |             | false     |
-| muted         | no        | boolean                                                                                          |             | false     |
-| metadata      | no        | { [key: string]: string }                                                                        |             | {}        |
-| hideControls  | no        | boolean                                                                                          |             | false     |
-| hidePoster    | no        | boolean                                                                                          |             | false     |
-| chromeless    | no        | boolean                                                                                          |             | false     |
-| loop          | no        | boolean                                                                                          |             | false     |
-| hideTitle     | no        | boolean                                                                                          |             | false     |
-| playbackRate  | no        | number                                                                                           |             | 1         |
-| showSubtitles | no        | boolean                                                                                          |             | false     |
-| volume        | no        | number                                                                                           |             | 1         |
-| controls      | no        | ControlName[]                                                                                    |             | undefined |
-| theme         | no        | PlayerTheme                                                                                      |             | undefined |
-| responsive    | no        | boolean                                                                                          |             | false     |
-
-### Callbacks
-
-| Property               | Type                                                    | Description |
-| ---------------------- | ------------------------------------------------------- | ----------- |
-| onPlay                 | () => void                                              |             |
-| onPause                | () => void                                              |             |
-| onControlsDisabled     | () => void                                              |             |
-| onControlsEnabled      | () => void                                              |             |
-| onEnded                | () => void                                              |             |
-| onError                | () => void                                              |             |
-| onFirstPlay            | () => void                                              |             |
-| onFullscreenChange     | () => void                                              |             |
-| onMouseEnter           | () => void                                              |             |
-| onMouseLeave           | () => void                                              |             |
-| onPlayerResize         | () => void                                              |             |
-| onQualityChange        | (resolution: { height: number, width: number }) => void |             |
-| onVideoSizeRatioChange | (ratio: number) => void                                 |             |
-| onRateChange           | () => void                                              |             |
-| onReady                | () => void                                              |             |
-| onResize               | () => void                                              |             |
-| onSeeking              | () => void                                              |             |
-| onTimeUpdate           | (currentTime: number) => void                           |             |
-| onUserActive           | () => void                                              |             |
-| onUserInactive         | () => void                                              |             |
-| onVolumeChange         | (volume: number) => void                                |             |
-| onDurationChange       | (duration: number) => void                              |             |
-
-## Methods
-
-| Method                       | Description |
-| ---------------------------- | ----------- |
-| play()                       |             |
-| pause()                      |             |
-| seek(time: number)           |             |
-| setCurrentTime(time: number) |             |
