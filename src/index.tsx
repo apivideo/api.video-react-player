@@ -149,9 +149,6 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
 
     componentWillReceiveProps(nextProps: ApiVideoPlayerProps) {
 
-        if (nextProps.chromeless !== undefined && nextProps.chromeless !== this.props.chromeless) {
-            this.playerSdk.setChromeless(nextProps.chromeless);
-        }
 
         if (nextProps.video.id !== this.props.video.id
             || nextProps.video.token !== this.props.video.token
@@ -162,29 +159,49 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
             });
         }
 
-        if (nextProps.muted !== undefined && nextProps.muted !== this.props.muted) {
+        if (nextProps.chromeless !== this.props.chromeless) {
+            this.playerSdk.setChromeless(nextProps.chromeless || false);
+        }
+        if (nextProps.muted !== this.props.muted) {
             nextProps.muted ? this.playerSdk.mute() : this.playerSdk.unmute();
         }
         if (nextProps.volume !== undefined && nextProps.volume !== this.props.volume) {
             this.playerSdk.setVolume(nextProps.volume);
         }
-        if (nextProps.loop !== undefined && nextProps.loop !== this.props.loop) {
-            this.playerSdk.setLoop(nextProps.loop);
+        if (nextProps.loop !== this.props.loop) {
+            this.playerSdk.setLoop(nextProps.loop || false);
         }
-        if (nextProps.hideTitle !== undefined && nextProps.hideTitle !== this.props.hideTitle) {
+        if (nextProps.hideTitle !== this.props.hideTitle) {
             nextProps.hideTitle ? this.playerSdk.hideTitle() : this.playerSdk.showTitle();
         }
-        if (nextProps.autoplay !== undefined && nextProps.autoplay !== this.props.autoplay) {
-            this.playerSdk.setAutoplay(nextProps.autoplay);
+        if (nextProps.hidePoster !== this.props.hidePoster) {
+            nextProps.hidePoster ? this.playerSdk.hidePoster() : this.playerSdk.showPoster();
+        }
+        if (nextProps.showSubtitles !== undefined && nextProps.showSubtitles !== this.props.showSubtitles) {
+            nextProps.showSubtitles ? this.playerSdk.showSubtitles() : this.playerSdk.hideSubtitles();
+        }
+        if (nextProps.autoplay !== this.props.autoplay) {
+            this.playerSdk.setAutoplay(nextProps.autoplay || false);
         }
         if (nextProps.playbackRate !== undefined && nextProps.playbackRate !== this.props.playbackRate) {
             this.playerSdk.setPlaybackRate(nextProps.playbackRate);
         }
 
         if (nextProps.controls !== undefined) {
-            const oldControls = this.props.controls || [];
-            const added = nextProps.controls?.filter(c => oldControls.indexOf(c) === -1);
-            const removed = oldControls?.filter(c => nextProps.controls?.indexOf(c) === -1);
+            const allControls = ["play", "seekBackward", "seekForward", "playbackRate"
+            , "volume", "fullscreen", "subtitles", "chapters"
+            , "pictureInPicture", "progressBar", "chromecast", "download", "more"] as ControlName[];
+
+            const oldControls = this.props.controls != undefined 
+                ? this.props.controls || []
+                : allControls;
+
+            const nextControls = nextProps.controls != undefined
+                ? nextProps.controls
+                : allControls;
+
+            const added = nextControls.filter(c => oldControls.indexOf(c) === -1);
+            const removed = oldControls.filter(c => nextControls.indexOf(c) === -1);
             if (added.length > 0) this.playerSdk.showControls(added);
             if (removed.length > 0) this.playerSdk.hideControls(removed);
         }
