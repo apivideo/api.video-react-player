@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [0.1.3] - 2022-04-27
+- Add requestFullscreen(), exitFullscreen(), requestPictureInPicture() and exitPictureInPicture()
+    
 ## [0.1.2] - 2022-04-25
 - Update README
 - Minor fixes
