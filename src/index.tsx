@@ -138,6 +138,13 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
         this.playerSdk.addEventListener("userinactive", () => this.props.onUserInactive && this.props.onUserInactive());
         this.playerSdk.addEventListener("volumechange", (v) => this.props.onVolumeChange && this.props.onVolumeChange(v.volume));
 
+        if(this.props.videoStyleObjectFit) {
+            this.playerSdk.setVideoStyleObjectFit(this.props.videoStyleObjectFit);
+        }
+
+        if(this.props.videoStyleTransform) {
+            this.playerSdk.setVideoStyleTransform(this.props.videoStyleTransform);
+        }
 
         this.playerSdk.addEventListener("ready", () => {
             this.playerSdk.getVolume().then(d => this.props.onVolumeChange && this.props.onVolumeChange(d));
@@ -206,11 +213,11 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
         if (nextProps.playbackRate !== undefined && nextProps.playbackRate !== this.props.playbackRate) {
             this.playerSdk.setPlaybackRate(nextProps.playbackRate);
         }
-        if (nextProps.videoStyleObjectFit !== undefined && nextProps.videoStyleObjectFit !== this.props.videoStyleObjectFit) {
-            this.playerSdk.setVideoStyleObjectFit(nextProps.videoStyleObjectFit);
+        if (nextProps.videoStyleObjectFit !== this.props.videoStyleObjectFit) {
+            this.playerSdk.setVideoStyleObjectFit(nextProps.videoStyleObjectFit || "none");
         }
-        if (nextProps.videoStyleTransform !== undefined && nextProps.videoStyleTransform !== this.props.videoStyleTransform) {
-            this.playerSdk.setVideoStyleTransform(nextProps.videoStyleTransform);
+        if (nextProps.videoStyleTransform !== this.props.videoStyleTransform) {
+            this.playerSdk.setVideoStyleTransform(nextProps.videoStyleTransform || "");
         }
 
         if (nextProps.controls !== undefined) {
