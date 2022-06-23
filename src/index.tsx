@@ -29,6 +29,10 @@ export interface ApiVideoPlayerProps {
     volume?: number;
     controls?: ControlName[],
     theme?: PlayerTheme;
+    videoStyleObjectFit?: "contain" | "cover" | "fill" | "none" | "scale-down"; 
+    videoStyleTransform?: string;
+
+
 
     responsive?: boolean;
 
@@ -201,6 +205,12 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
         }
         if (nextProps.playbackRate !== undefined && nextProps.playbackRate !== this.props.playbackRate) {
             this.playerSdk.setPlaybackRate(nextProps.playbackRate);
+        }
+        if (nextProps.videoStyleObjectFit !== undefined && nextProps.videoStyleObjectFit !== this.props.videoStyleObjectFit) {
+            this.playerSdk.setVideoStyleObjectFit(nextProps.videoStyleObjectFit);
+        }
+        if (nextProps.videoStyleTransform !== undefined && nextProps.videoStyleTransform !== this.props.videoStyleTransform) {
+            this.playerSdk.setVideoStyleTransform(nextProps.videoStyleTransform);
         }
 
         if (nextProps.controls !== undefined) {
