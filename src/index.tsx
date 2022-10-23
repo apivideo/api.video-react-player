@@ -259,7 +259,7 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
             }
             responsiveStyle.width = "100%";
         }
-        return <div style={{ ...(this.props.style || {}), position: "relative", ...responsiveStyle }}>
+        return <div style={{ ...(this.props.style || {}), ...responsiveStyle }}>
             <iframe allowFullScreen={true} allow="autoplay; picture-in-picture" style={{ width: "100%", height: "100%", border: "none", position: "absolute", top: 0, left: 0 }} ref={this.iframe} />
             {this.props.children && <div style={{ width: "100%", height: "100%", position: "absolute", top: 0 }}>{this.props.children}</div>}
         </div>;
