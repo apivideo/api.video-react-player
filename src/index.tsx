@@ -5,6 +5,7 @@ export interface ApiVideoPlayerVideo {
     id: string;
     live?: boolean;
     token?: string;
+    privateSession?: string;
 };
 
 export type ControlName = SdkControlName;
@@ -179,6 +180,7 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
 
         if (nextProps.video.id !== this.props.video.id
             || nextProps.video.token !== this.props.video.token
+            || nextProps.video.privateSession !== this.props.video.privateSession
             || nextProps.video.live !== this.props.video.live) {
             this.playerSdk.loadConfig({
                 ...(this.props),

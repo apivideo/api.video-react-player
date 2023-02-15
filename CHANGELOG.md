@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.0.2] - 2023-02-15
+- Add `privateSession` attribute
+
 ## [1.0.1] - 2022-06-23
 - Add `videoStyleObjectFit` and `videoStyleTransform` attributes
 
