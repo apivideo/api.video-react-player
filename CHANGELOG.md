@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.0.3] - 2023-06-12
+- Add ads support
+
 ## [1.0.2] - 2023-02-15
 - Add `privateSession` attribute
 

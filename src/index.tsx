@@ -18,6 +18,9 @@ export interface ApiVideoPlayerProps {
     metadata?: {
         [key: string]: string;
     };
+    ads?: {
+        adTagUrl: string;
+    }
     hideControls?: boolean;
     hidePoster?: boolean;
     chromeless?: boolean;

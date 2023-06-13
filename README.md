@@ -19,6 +19,7 @@
     - [Settings](#settings)
       - [Controls](#controls)
       - [Player theme](#player-theme)
+      - [Ads](#ads)
       - [Responsiveness](#responsiveness)
     - [Callbacks](#callbacks)
   - [Methods](#methods)
@@ -79,7 +80,7 @@ The following properties are used to configure the player. The value of each of 
 | responsive          | no        | boolean                                                                                          | Weither if the player shoulb be responsive. See below [responsiveness](#responsiveness)                                         | false     |
 | videoStyleObjectFit | no        | "contain" \| "cover" \| "fill" \| "none" \| "scale-down"                                         | The `object-fit` CSS value of the video tag                                                                                     | undefined |
 | videoStyleTransform | no        | string                                                                                           | The `transform` CSS value of the video tag (examples: "rotateY(180deg)")                                                        | undefined |
-
+| ads | no | {adTagUrl: string} | see below [ads](#ads) |
 #### Controls
 
 The `controls` property let you decide wich controls should be displayed on the player. Here is the list of all available controls:  `play`, `seekBackward`, `seekForward`, `playbackRate`, `volume`, `fullscreen`, `subtitles`, `chapters`, `pictureInPicture`, `progressBar`, `chromecast`, `download`, `more`.
@@ -118,6 +119,12 @@ The `theme` property let you customize the color of some elements on the player.
 >     text: "blue"
 >   }}/>
 > ```
+
+
+#### Ads
+Ads can be displayed in the player. To do so, you need to pass the `ads` option to the sdk constructor. In the `ads` object, pass the `adTagUrl` property with the url of the ad tag. The ad tag must be a VAST 2.0 or 3.0 url. For more information about VAST, check the [IAB documentation](https://www.iab.com/guidelines/vast/).
+
+Note: ads are displayed using the [Google IMA SDK](https://developers.google.com/interactive-media-ads/docs/sdks/html5/quickstart).
 
 #### Responsiveness
 
