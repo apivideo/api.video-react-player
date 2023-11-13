@@ -19,6 +19,7 @@
   - [Properties](#properties)
     - [Settings](#settings)
       - [Controls](#controls)
+      - [Player theme](#player-theme)
       - [Ads](#ads)
       - [Responsiveness](#responsiveness)
     - [Callbacks](#callbacks)
@@ -33,7 +34,7 @@
 ---
 title: api.video React Player component
 meta:
-description: The official api.video React Player component for api.video. [api.video](https://api.video/) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
+  description: The official api.video React Player component for api.video. [api.video](https://api.video/) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
 ---
 
 # api.video React Player component
@@ -57,10 +58,6 @@ $ npm install --save @api.video/react-player
 ### Basic usage
 
 You can then use the component in your app:
-<!--<documentation_only>
-
-{% raw %}
-</documentation_only>-->
 
 ```tsx
 import ApiVideoPlayer from '@api.video/react-player'
@@ -69,10 +66,6 @@ import ApiVideoPlayer from '@api.video/react-player'
 
 <ApiVideoPlayer video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
 ```
-<!--<documentation_only>
-
-{% endraw %}
-</documentation_only>-->
 
 ## Documentation
 
@@ -101,18 +94,15 @@ The following properties are used to configure the player. The value of each of 
 | responsive          | no        | boolean                                                                                          | Weither if the player shoulb be responsive. See below [responsiveness](#responsiveness)                                         | false     |
 | videoStyleObjectFit | no        | "contain" \| "cover" \| "fill" \| "none" \| "scale-down"                                         | The `object-fit` CSS value of the video tag                                                                                     | undefined |
 | videoStyleTransform | no        | string                                                                                           | The `transform` CSS value of the video tag (examples: "rotateY(180deg)")                                                        | undefined |
-| ads                 | no        | {adTagUrl: string}                                                                               | see below [ads](#ads)                                                                                                           |
+| ads                 | no        | {adTagUrl: string}                                                                               | see below [ads](#ads)                                                                                                           |  |
 
 ##### Controls
 
 The `controls` property let you decide wich controls should be displayed on the player. Here is the list of all available controls: `play`, `seekBackward`, `seekForward`, `playbackRate`, `volume`, `fullscreen`, `subtitles`, `chapters`, `pictureInPicture`, `progressBar`, `chromecast`, `download`, `more`.
-<!--<documentation_only>
-
-{% raw %}
-</documentation_only>-->
 
 Examples
-> ```tsx
+
+```tsx
 {/* default: all controls are displayed */}
 <ApiVideoPlayer 
  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
@@ -128,16 +118,12 @@ Examples
   controls={["play", "unmute"]}/>
 ```
 
-<!--<documentation_only>
-{% endraw %}
-
-</documentation_only>-->
+ 
 ##### Player theme
 
 The `theme` property let you customize the color of some elements on the player. Here is the list of customizable elements: `text`, `link`, `linkHover`, `trackPlayed`, `trackUnplayed`, `trackBackground`, `backgroundTop`, `backgroundBottom`, `backgroundText`, `linkActive`.
 
 Example
-
 ```tsx
 { /* display the text in blue and the progress bar in red */}
 <ApiVideoPlayer
@@ -147,7 +133,6 @@ Example
     text: "blue"
   }}/>
 ```
-
 
 ##### Ads
 Ads can be displayed in the player. To do so, you need to pass the `ads` option to the sdk constructor. In the `ads` object, pass the `adTagUrl` property with the url of the ad tag. The ad tag must be a VAST 2.0 or 3.0 url. For more information about VAST, check the [IAB documentation](https://www.iab.com/guidelines/vast/).
@@ -159,10 +144,6 @@ Note: ads are displayed using the [Google IMA SDK](https://developers.google.com
 With `responsive={true}`, the player height will be automatically set to match the video with/height ratio, depending on the width of player.
 
 Example
-<!--<documentation_only>
-
-{% raw %}
-</documentation_only>-->
 
 ```tsx
 { /* the player width is 160px and response is true: if the video in a 16/9 one, the height of the player will be automatically set to 90px (160 / (16/9)) */ }
@@ -171,10 +152,6 @@ Example
   style={{width: "160px"}}
   responsive={true} />
 ```
-<!--<documentation_only>
-
-{% endraw %}
-</documentation_only>-->
 
 #### Callbacks
 
@@ -220,10 +197,6 @@ Example
 #### Private videos
 
 To play a [private video](https://api.video/blog/tutorials/tutorial-private-videos/), add the video view token in the video attribute:
-<!--<documentation_only>
-
-{% raw %}
-</documentation_only>-->
 
 ```tsx
 // ...
@@ -231,16 +204,8 @@ To play a [private video](https://api.video/blog/tutorials/tutorial-private-vide
     id: "vi5fv44Hol1jFrCovyktAJS9",
   token: "e1bdf9a8-da40-421e-87f3-75b15232c531"}} />
 ```
-<!--<documentation_only>
-
-{% endraw %}
-</documentation_only>-->
 
 #### Defining metadata
-<!--<documentation_only>
-
-{% raw %}
-</documentation_only>-->
 
 ```tsx
 // ...
@@ -248,16 +213,8 @@ To play a [private video](https://api.video/blog/tutorials/tutorial-private-vide
   video={{ id: "vi5fv44Hol1jFrCovyktAJS9" }}
   metadata={{"userName": "Alfred"}} />
 ```
-<!--<documentation_only>
-
-{% endraw %}
-</documentation_only>-->
 
 #### Define your own controls
-<!--<documentation_only>
-
-{% raw %}
-</documentation_only>-->
 
 ```tsx
 const playerRef = useRef<ApiVideoPlayer>(null);
@@ -271,7 +228,3 @@ return
   <button onClick={() => playerRef.current?.pause()}>pause</button>
 </ApiVideoPlayer>
 ```
-<!--<documentation_only>
-
-{% endraw %}
-</documentation_only>-->
