@@ -1,3 +1,4 @@
+<!--<documentation_excluded>-->
 [![badge](https://img.shields.io/twitter/follow/api_video?style=social)](https://twitter.com/intent/follow?screen_name=api_video) &nbsp; [![badge](https://img.shields.io/github/stars/apivideo/api.video-react-player?style=social)](https://github.com/apivideo/api.video-react-player) &nbsp; [![badge](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video)](https://community.api.video)
 ![](https://github.com/apivideo/.github/blob/main/assets/apivideo_banner.png)
 <h1 align="center">api.video React player component</h1>
@@ -7,7 +8,7 @@
 
 [api.video](https://api.video) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
 
-# Table of contents
+## Table of contents
 
 - [Table of contents](#table-of-contents)
 - [Project description](#project-description)
@@ -18,7 +19,6 @@
   - [Properties](#properties)
     - [Settings](#settings)
       - [Controls](#controls)
-      - [Player theme](#player-theme)
       - [Ads](#ads)
       - [Responsiveness](#responsiveness)
     - [Callbacks](#callbacks)
@@ -28,22 +28,39 @@
     - [Defining metadata](#defining-metadata)
     - [Define your own controls](#define-your-own-controls)
 
-# Project description
+<!--</documentation_excluded>-->
+<!--<documentation_only>
+---
+title: api.video React Player component
+meta:
+description: The official api.video React Player component for api.video. [api.video](https://api.video/) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
+---
 
+# api.video React Player component
 
-# Getting started
+[api.video](https://api.video/) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
 
-A React component for playing api.video videos.
+</documentation_only>-->
 
-## Installation
+## Project description
+
+The official api.video React Player component.
+
+## Getting started
+
+### Installation
 
 ```sh
 $ npm install --save @api.video/react-player
 ```
 
-## Basic usage
+### Basic usage
 
-You can then use the component in your app: 
+You can then use the component in your app:
+<!--<documentation_only>
+
+{% raw %}
+</documentation_only>-->
 
 ```tsx
 import ApiVideoPlayer from '@api.video/react-player'
@@ -52,12 +69,16 @@ import ApiVideoPlayer from '@api.video/react-player'
 
 <ApiVideoPlayer video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
 ```
+<!--<documentation_only>
 
-# Documentation
+{% endraw %}
+</documentation_only>-->
 
-## Properties
+## Documentation
 
-### Settings
+### Properties
+
+#### Settings
 
 The following properties are used to configure the player. The value of each of these properties can be changed at any time during the playback.
 
@@ -67,7 +88,7 @@ The following properties are used to configure the player. The value of each of 
 | style               | no        | React.CSSProperties                                                                              | CSS style to apply to the player container                                                                                      | {}        |
 | autoplay            | no        | boolean                                                                                          | Define if the video should start playing as soon as it is loaded                                                                | false     |
 | muted               | no        | boolean                                                                                          | The video is muted                                                                                                              | false     |
-| metadata            | no        | { [key: string]: string }                                                                        | Object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata) (see **example** below)                         | {}        |
+| metadata            | no        | { [key: string]: string }                                                                        | Object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata/) (see **example** below)                        | {}        |
 | hidePoster          | no        | boolean                                                                                          | Weither if the poster image displayed before the first play of the video should be hidden                                       | false     |
 | chromeless          | no        | boolean                                                                                          | Chromeless mode: all controls are hidden                                                                                        | false     |
 | loop                | no        | boolean                                                                                          | Once the video is finished it automatically starts again                                                                        | false     |
@@ -80,67 +101,82 @@ The following properties are used to configure the player. The value of each of 
 | responsive          | no        | boolean                                                                                          | Weither if the player shoulb be responsive. See below [responsiveness](#responsiveness)                                         | false     |
 | videoStyleObjectFit | no        | "contain" \| "cover" \| "fill" \| "none" \| "scale-down"                                         | The `object-fit` CSS value of the video tag                                                                                     | undefined |
 | videoStyleTransform | no        | string                                                                                           | The `transform` CSS value of the video tag (examples: "rotateY(180deg)")                                                        | undefined |
-| ads | no | {adTagUrl: string} | see below [ads](#ads) |
-#### Controls
+| ads                 | no        | {adTagUrl: string}                                                                               | see below [ads](#ads)                                                                                                           |
 
-The `controls` property let you decide wich controls should be displayed on the player. Here is the list of all available controls:  `play`, `seekBackward`, `seekForward`, `playbackRate`, `volume`, `fullscreen`, `subtitles`, `chapters`, `pictureInPicture`, `progressBar`, `chromecast`, `download`, `more`.
+##### Controls
 
+The `controls` property let you decide wich controls should be displayed on the player. Here is the list of all available controls: `play`, `seekBackward`, `seekForward`, `playbackRate`, `volume`, `fullscreen`, `subtitles`, `chapters`, `pictureInPicture`, `progressBar`, `chromecast`, `download`, `more`.
+<!--<documentation_only>
 
-> Examples
->
+{% raw %}
+</documentation_only>-->
+
+Examples
 > ```tsx
-> {/* default: all controls are displayed */}
-> <ApiVideoPlayer 
->  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
-> 
-> {/* all controls hidden (equivalent to chromeless=true) */}
-> <ApiVideoPlayer 
->   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
->   controls={[]} />
-> 
-> { /* only the play button & the unmute one are displayed */}
-> <ApiVideoPlayer 
->   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
->   controls={["play", "unmute"]}/>
-> ```
+{/* default: all controls are displayed */}
+<ApiVideoPlayer 
+ video={{id: "vi5fv44Hol1jFrCovyktAJS9"}} />
 
-#### Player theme
+{/* all controls hidden (equivalent to chromeless=true) */}
+<ApiVideoPlayer 
+  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+  controls={[]} />
+
+{ /* only the play button & the unmute one are displayed */}
+<ApiVideoPlayer 
+  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+  controls={["play", "unmute"]}/>
+```
+
+<!--<documentation_only>
+{% endraw %}
+
+</documentation_only>-->
+##### Player theme
 
 The `theme` property let you customize the color of some elements on the player. Here is the list of customizable elements: `text`, `link`, `linkHover`, `trackPlayed`, `trackUnplayed`, `trackBackground`, `backgroundTop`, `backgroundBottom`, `backgroundText`, `linkActive`.
 
-> Example
-> 
-> ```tsx
-> { /* display the text in blue and the progress bar in red */}
-> <ApiVideoPlayer 
->   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
->   theme={{
->     trackPlayed: "#FF0000",
->     text: "blue"
->   }}/>
-> ```
+Example
+
+```tsx
+{ /* display the text in blue and the progress bar in red */}
+<ApiVideoPlayer
+  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+  theme={{
+    trackPlayed: "#FF0000",
+    text: "blue"
+  }}/>
+```
 
 
-#### Ads
+##### Ads
 Ads can be displayed in the player. To do so, you need to pass the `ads` option to the sdk constructor. In the `ads` object, pass the `adTagUrl` property with the url of the ad tag. The ad tag must be a VAST 2.0 or 3.0 url. For more information about VAST, check the [IAB documentation](https://www.iab.com/guidelines/vast/).
 
 Note: ads are displayed using the [Google IMA SDK](https://developers.google.com/interactive-media-ads/docs/sdks/html5/quickstart).
 
-#### Responsiveness
+##### Responsiveness
 
-With `responsive={true}`, the player height will be automatically set to match the video with/height ratio, depending on the width of player. 
+With `responsive={true}`, the player height will be automatically set to match the video with/height ratio, depending on the width of player.
 
-> Example
-> 
-> ```tsx
-> { /* the player width is 160px and response is true: if the video in a 16/9 one, the height of the player will be automatically set to 90px (160 / (16/9)) */}
-> <ApiVideoPlayer 
->   video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
->   style={{width: "160px"}}
->   responsive={true} />
-> ```
+Example
+<!--<documentation_only>
 
-### Callbacks
+{% raw %}
+</documentation_only>-->
+
+```tsx
+{ /* the player width is 160px and response is true: if the video in a 16/9 one, the height of the player will be automatically set to 90px (160 / (16/9)) */ }
+<ApiVideoPlayer 
+  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+  style={{width: "160px"}}
+  responsive={true} />
+```
+<!--<documentation_only>
+
+{% endraw %}
+</documentation_only>-->
+
+#### Callbacks
 
 | Property               | Type                                                    | Description                                                                                                 |
 | ---------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -166,7 +202,7 @@ With `responsive={true}`, the player height will be automatically set to match t
 | onVolumeChange         | (volume: number) => void                                | Called when the volume changes. The volume is provided.                                                     |
 | onDurationChange       | (duration: number) => void                              | Called when the duration of the video change. The duration is provided                                      |
 
-## Methods
+### Methods
 
 | Method                       | Description                                                                                         |
 | ---------------------------- | --------------------------------------------------------------------------------------------------- |
@@ -179,41 +215,63 @@ With `responsive={true}`, the player height will be automatically set to match t
 | requestPictureInPicture()    | Request picture in picture mode (this may not work in some cases depending on browser restrictions) |
 | exitPictureInPicture()       | Leave picture in picture mode                                                                       |
 
-## Use cases
+### Use cases
 
+#### Private videos
 
-### Private videos
+To play a [private video](https://api.video/blog/tutorials/tutorial-private-videos/), add the video view token in the video attribute:
+<!--<documentation_only>
 
-To play a [private video](https://api.video/blog/tutorials/tutorial-private-videos), add the video view token in the video attribute:
+{% raw %}
+</documentation_only>-->
 
 ```tsx
 // ...
 <ApiVideoPlayer video={{
-  id: "vi5fv44Hol1jFrCovyktAJS9",
+    id: "vi5fv44Hol1jFrCovyktAJS9",
   token: "e1bdf9a8-da40-421e-87f3-75b15232c531"}} />
 ```
+<!--<documentation_only>
 
-### Defining metadata
+{% endraw %}
+</documentation_only>-->
+
+#### Defining metadata
+<!--<documentation_only>
+
+{% raw %}
+</documentation_only>-->
 
 ```tsx
 // ...
-<ApiVideoPlayer 
-  video={{id: "vi5fv44Hol1jFrCovyktAJS9"}}
+<ApiVideoPlayer
+  video={{ id: "vi5fv44Hol1jFrCovyktAJS9" }}
   metadata={{"userName": "Alfred"}} />
 ```
+<!--<documentation_only>
 
-### Define your own controls
+{% endraw %}
+</documentation_only>-->
+
+#### Define your own controls
+<!--<documentation_only>
+
+{% raw %}
+</documentation_only>-->
 
 ```tsx
-
 const playerRef = useRef<ApiVideoPlayer>(null);
 
 return
-<ApiVideoPlayer      
+<ApiVideoPlayer
   video={{ id: "vi5jC9kQs2I3PdmVBjgcIg45" }}
   chromeless={true}
   ref={playerRef}>
-    <button onClick={() => playerRef.current?.play()}>play</button>
-    <button onClick={() => playerRef.current?.pause()}>pause</button>
+  <button onClick={() => playerRef.current?.play()}>play</button>
+  <button onClick={() => playerRef.current?.pause()}>pause</button>
 </ApiVideoPlayer>
 ```
+<!--<documentation_only>
+
+{% endraw %}
+</documentation_only>-->
