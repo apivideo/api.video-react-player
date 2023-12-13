@@ -35,6 +35,12 @@ export interface ApiVideoPlayerProps {
     theme?: PlayerTheme;
     videoStyleObjectFit?: "contain" | "cover" | "fill" | "none" | "scale-down"; 
     videoStyleTransform?: string;
+    // This feature is experimental.
+    // It may change or be removed at any time and could cause significant playback issues.
+     minimalQuality?: number;
+    // This feature is experimental.
+    // It may change or be removed at any time and could cause significant playback issues.
+     maximalQuality?: number;
 
 
 
@@ -211,6 +217,12 @@ export default class ApiVideoPlayer extends React.Component<ApiVideoPlayerProps,
         }
         if (nextProps.showSubtitles !== undefined && nextProps.showSubtitles !== this.props.showSubtitles) {
             nextProps.showSubtitles ? this.playerSdk.showSubtitles() : this.playerSdk.hideSubtitles();
+        }
+        if (nextProps.maximalQuality !== undefined && nextProps.maximalQuality !== this.props.maximalQuality) {
+            this.playerSdk.setMaximalQuality(nextProps.maximalQuality);
+        }
+        if (nextProps.minimalQuality !== undefined && nextProps.minimalQuality !== this.props.minimalQuality) {
+            this.playerSdk.setMinimalQuality(nextProps.minimalQuality);
         }
         if (nextProps.autoplay !== this.props.autoplay) {
             this.playerSdk.setAutoplay(nextProps.autoplay || false);
