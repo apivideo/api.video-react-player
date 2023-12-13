@@ -1,6 +1,9 @@
 # Changelog
 All changes to this project will be documented in this file.
 
+## [1.0.4] - 2023-12-13
+- Add experimental features
+
 ## [1.0.3] - 2023-06-12
 - Add ads support
 
