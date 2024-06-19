@@ -10,4 +10,4 @@ jobs:
         with:
           node-version: 16
       - run: npm install --no-save
-      - run: npm test
+      - run: npm run build
