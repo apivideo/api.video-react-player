@@ -32,9 +32,8 @@
 
 <!--</documentation_excluded>-->
 
-<!--<documentation_only>
+## <!--<documentation_only>
 
----
 title: api.video React Player component
 meta:
 description: The official api.video React Player component for api.video. [api.video](https://api.video/) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
@@ -84,11 +83,11 @@ The following properties are used to configure the player. The value of each of 
 
 | Property            | Mandatory          | Type                                                     | Description                                                                                                                     | Default   |
 | ------------------- | ------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| video               | **yes**            | `{id: string;live?: boolean; token?: string;}`           | `id`: id of the video to play<br>`token` (optional): secret video token<br>`live` (optional): true for live videos              |           |
-| style               | no                 | React.CSSProperties                                      | CSS style to apply to the player container                                                                                      | {}        |
+| video               | **yes**            | `{id: string;live?: boolean; token?: string;}`           | `id`: id of the video to play<br/>`token` (optional): secret video token<br/>`live` (optional): true for live videos            |           |
+| style               | no                 | React.CSSProperties                                      | CSS style to apply to the player container                                                                                      | `{}`      |
 | autoplay            | no                 | boolean                                                  | Define if the video should start playing as soon as it is loaded                                                                | false     |
 | muted               | no                 | boolean                                                  | The video is muted                                                                                                              | false     |
-| metadata            | no                 | `{ [key: string]: string }`                              | Object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata/) (see **example** below)                        | {}        |
+| metadata            | no                 | `{ [key: string]: string }`                              | Object containing [metadata](https://api.video/blog/tutorials/dynamic-metadata/) (see **example** below)                        | `{}`      |
 | hidePoster          | no                 | boolean                                                  | Weither if the poster image displayed before the first play of the video should be hidden                                       | false     |
 | chromeless          | no                 | boolean                                                  | Chromeless mode: all controls are hidden                                                                                        | false     |
 | loop                | no                 | boolean                                                  | Once the video is finished it automatically starts again                                                                        | false     |
@@ -101,7 +100,7 @@ The following properties are used to configure the player. The value of each of 
 | responsive          | no                 | boolean                                                  | Weither if the player shoulb be responsive. See below [responsiveness](#responsiveness)                                         | false     |
 | videoStyleObjectFit | no                 | "contain" \| "cover" \| "fill" \| "none" \| "scale-down" | The `object-fit` CSS value of the video tag                                                                                     | undefined |
 | videoStyleTransform | no                 | string                                                   | The `transform` CSS value of the video tag (examples: "rotateY(180deg)")                                                        | undefined |
-| ads                 | no                 | {adTagUrl: string}                                       | see below [ads](#ads)                                                                                                           |           |
+| ads                 | no                 | `{adTagUrl: string}`                                     | see below [ads](#ads)                                                                                                           |           |
 | customDomain        | no                 | string                                                   | if you've enabled Custom Domains for your account, the complete 'embed' domain (eg. embed.mydomain.com)                         |
 | hotkeys             | no (default: true) | boolean                                                  | if false, deactivate the player's hotkeys to prevent it from capturing focus, which can be beneficial in certain scenarios      |
 
